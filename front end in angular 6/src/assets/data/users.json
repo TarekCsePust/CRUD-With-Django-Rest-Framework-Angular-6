@@ -1,0 +1,18 @@
+[
+
+    
+    {
+        "id": 1,
+        "name": "Hasan Tarek",
+        "department": "EEE",
+        "session": "2013-14",
+        "phone": 8801675790248
+    },
+    {
+        "id": 2,
+        "name": "Habib",
+        "department": "CSE",
+        "session": "2013-14",
+        "phone": 8801675790248
+    }
+]

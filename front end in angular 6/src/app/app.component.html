@@ -1,0 +1,189 @@
+<div class="container">
+  <br>
+  <h2>Student List</h2>
+  
+  <button class="btn btn-info float-right mb-3" (click)=" clearform()" type="button" data-toggle="modal" data-target="#myModal">ADD Student</button>     
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Session</th>
+        <th>Phone</th>
+        <th>Edit</th>
+        <th>Delete</th>
+       
+      </tr>
+    </thead>
+    <tbody *ngFor="let student of students; index as i">
+      <tr>
+        <td>{{(i+1)}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.department}}</td>
+        <td>{{student.session}}</td>
+        <td>{{student.phone}}</td>
+        <td><i class="fas fa-edit" (click)="selecteItem(student)"  data-toggle="modal" data-target="#myModal" style="color:blue;"></i> </td>
+        <td><i class="fas fa-trash" style="color: red;" (click)="selecteItem(student)" data-toggle="modal" data-target="#myModal2"></i></td>
+      </tr>
+     
+     
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal" >
+    <div class="modal-dialog modal-dialog-centered" >
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h6 class="modal-title">{{heading}}</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+
+
+
+
+
+
+
+
+
+          <h5 *ngIf="sucessfull" style="color: green" >User has been created sucessfully.</h5>
+          <h5 *ngIf="updatedSucessfull" style="color: green" >User has been updated sucessfully.</h5>
+
+            <form   #userForm="ngForm"  novalidate (ngSubmit)="onSubmit(userForm)" *ngIf="!sucessfull && !updatedSucessfull">
+
+            
+          
+          
+               
+          
+                  <div class="form-group">
+                      <label for="email">Name:</label>
+                      <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" id="name" placeholder="Enter name" name="name" [(ngModel)]="studentModel.name">
+                      <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required.</small>
+                  </div>
+                
+                <div class="form-group">
+                  <label for="department">Department:</label>
+                  <input type="text" required #department="ngModel" [class.is-invalid]="department.invalid && department.touched" class="form-control"  placeholder="Enter department" name="department" [(ngModel)]="studentModel.department">
+                  <small class="text-danger" [class.d-none]="department.valid || department.untouched">Department is required.</small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="session">Session:</label>
+                    <input type="text" required #session="ngModel" [class.is-invalid]="session.invalid && session.touched" class="form-control"  placeholder="Enter session" name="session" [(ngModel)]="studentModel.session">
+                    <small class="text-danger" [class.d-none]="session.valid || session.untouched">Session is required.</small>
+                </div>
+
+
+
+                <div class="form-group">
+                  <label for="pwd">Phone:</label>
+                  <input type="tel" class="form-control"  required  #phone="ngModel" pattern="^\d{11}$" 
+                  [class.is-invalid]="phone.invalid && phone.touched"
+                  placeholder="Enter phone number" name="phone" [(ngModel)]="studentModel.phone">
+                 <!-- <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">phone number 10 digit is required.</small> -->
+                  
+                  <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+                    <small class="text-danger" *ngIf="phone.errors.required">Phone number is requierd</small>
+                    <small class="text-danger" *ngIf="phone.errors.pattern">Phone number is must be 11 digit</small>
+                  </div>
+                </div>
+          
+                
+                
+          
+                <!-- Modal footer -->
+          <div class="modal-footer" >
+            <button  [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          
+                
+          
+              </form>
+
+              <div class="modal-footer"  *ngIf="sucessfull">
+                
+                <button type="button" class="btn btn-danger" (click)="pageReaload()" data-dismiss="modal">Close</button>
+              </div>
+
+              <div class="modal-footer"  *ngIf="updatedSucessfull">
+                
+                <button type="button" class="btn btn-danger"  data-dismiss="modal">Close</button>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+         
+        </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteInfo()">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>
